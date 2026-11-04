@@ -17,7 +17,7 @@ export const CONFIG = {
   // "cole@players.example.com" because Supabase Auth needs an email.
   // Use a domain you own (no mail is ever sent). Never change this after
   // people have signed up, or their usernames will stop working.
-  usernameEmailDomain: "players.example.com",
+  usernameEmailDomain: "players.thehomeserver.dev",
 
   // EmulatorJS CDN version: "stable" is recommended.
   emulatorVersion: "stable",
