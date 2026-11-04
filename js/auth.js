@@ -27,8 +27,12 @@ function setMode(next) {
   $("password-hint").hidden = next !== "request";
   $("password").autocomplete = next === "request" ? "new-password" : "current-password";
   submit.textContent = next === "request" ? "Request account" : "Sign in";
-  show("");
+  if (isConfigured()) show("");
+  else show(NOT_CONFIGURED, "error");
 }
+
+const NOT_CONFIGURED =
+  "This site isn't connected to its database yet. The site owner needs to fill in js/config.js (see README).";
 $("tab-signin").addEventListener("click", () => setMode("signin"));
 $("tab-request").addEventListener("click", () => setMode("request"));
 
@@ -110,7 +114,7 @@ form.addEventListener("submit", async (e) => {
 
 (async () => {
   if (!isConfigured()) {
-    show("This site isn't connected to its database yet. Fill in js/config.js (see README).", "error");
+    show(NOT_CONFIGURED, "error");
     submit.disabled = true;
     return;
   }
