@@ -10,11 +10,11 @@ export const CONFIG = {
   // Supabase → Project Settings → API (or "Connect").
   // The anon/publishable key is safe to publish: row-level security
   // in supabase/schema.sql decides what each user can access.
-  supabaseUrl: "https://YOUR-PROJECT-REF.supabase.co",
-  supabaseAnonKey: "YOUR-ANON-KEY",
+  supabaseUrl: "https://xhwobcxepkbbkboodiuz.supabase.co",
+  supabaseAnonKey: "sb_publishable_bsImvnjNG2iLP46kJwk7oA_8HNKnArj",
 
   // Usernames are turned into internal email addresses like
-  // "cole@players.example.com" because Supabase Auth needs an email.
+  // "cole@players.thehomeserver.dev" because Supabase Auth needs an email.
   // Use a domain you own (no mail is ever sent). Never change this after
   // people have signed up, or their usernames will stop working.
   usernameEmailDomain: "players.thehomeserver.dev",
