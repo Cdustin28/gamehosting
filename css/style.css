@@ -621,6 +621,13 @@ dialog::backdrop { background: rgba(10, 8, 6, .5); }
 .sync[data-state="error"] { color: var(--danger); }
 @keyframes pulse { 50% { opacity: .3; } }
 
+.perf-toggle { border-color: var(--border); }
+.perf-toggle[aria-pressed="true"] {
+  --btn-bg: var(--accent-2);
+  --btn-ink: var(--accent-2-ink);
+  border-color: transparent;
+}
+
 .stage { position: relative; flex: 1; min-height: 0; background: var(--bg); }
 #game { width: 100%; height: 100%; }
 .loading {
@@ -650,7 +657,10 @@ dialog::backdrop { background: rgba(10, 8, 6, .5); }
   .grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 12px; }
   .tile .tile-title { font-size: 17px; }
   .row { grid-template-columns: 1fr; gap: 0; }
-  .play-bar .sync .label { display: none; }
+  .play-bar .sync .label,
+  .play-bar .perf-toggle .label,
+  .play-bar #back span { display: none; }
+  .play-bar { gap: 6px; }
   .admin { padding: 14px; }
   .admin .hide-sm { display: none; }
 }

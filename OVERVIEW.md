@@ -69,6 +69,7 @@ Because GitHub Pages cannot run server code, all logic runs in the browser. Secu
 | Client library | supabase-js v2 | MIT | |
 | ROM compression | fflate | MIT | Zips ROMs in the browser before upload |
 | Hosting | GitHub Pages | — | Free for public repositories |
+| Multithreading | coi-serviceworker | MIT | Enables threaded cores on GitHub Pages (Chrome, Edge, Firefox) |
 
 No build step is required; the site is plain ES modules.
 
@@ -238,7 +239,11 @@ gamehosting/
 6. Admin panel and storage usage display.
 7. Custom domain, HTTPS, and keep-alive workflow.
 
-## 11. Known limitations
+## 11. Performance
+- **Multithreading:** GitHub Pages can't send the headers threaded cores need, so `coi-serviceworker.js` adds them to the site's own pages. It uses COEP "credentialless", so Supabase, the EmulatorJS CDN, and cover images load normally; those requests bypass the worker. Safari and iOS don't support credentialless and run single-threaded.
+- **Performance mode:** a per-device toggle in the player (`js/performance.js`) that disables shaders, enables auto frameskip for GB/GBA, and lowers N64 resolution and anti-aliasing.
+
+## 12. Known limitations
 - N64 runs well on most computers but can stutter on older phones; some N64 games have graphical glitches.
 - If the same game is played on two devices at once, the most recent upload wins.
 - iPhone and iPad require a tap before audio starts, which EmulatorJS's start button handles.

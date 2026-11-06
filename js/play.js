@@ -3,6 +3,9 @@ import { THEMES, applyTheme } from "./theme.js";
 import { supabase, requireApprovedUser, signedUrl, formatBytes, timeAgo } from "./supabase.js";
 import { SYSTEMS, stripExtension, extensionOf } from "./systems.js";
 import { getCachedRom, putCachedRom } from "./romcache.js";
+import {
+  performanceMode, setPerformanceMode, threadsAvailable, defaultOptions, syncSavedEmulatorSettings,
+} from "./performance.js";
 
 const $ = (id) => document.getElementById(id);
 const gameId = new URLSearchParams(location.search).get("game");
@@ -125,6 +128,8 @@ function bootEmulator(romBlob, cloudSave) {
   const theme = THEMES[document.documentElement.dataset.theme] || THEMES.cardinal;
   const fileName = extensionOf(game.rom_name) === "zip" ? game.rom_name : `${stripExtension(game.rom_name)}.zip`;
 
+  syncSavedEmulatorSettings(sys.core, game.title);
+
   Object.assign(window, {
     EJS_player: "#game",
     EJS_core: sys.core,
@@ -135,6 +140,9 @@ function bootEmulator(romBlob, cloudSave) {
     EJS_backgroundColor: theme.bg,
     EJS_startOnLoaded: false,
     EJS_fixedSaveInterval: CONFIG.saveCheckIntervalMs,
+    // Multithreaded cores when the browser allows it (see js/coi-config.js).
+    EJS_threads: threadsAvailable(),
+    EJS_defaultOptions: defaultOptions(sys.core),
     // Only in-game (battery) saves sync, so hide save states and manual save files.
     EJS_Buttons: {
       saveState: false,
@@ -269,4 +277,28 @@ async function saveAndExit(e) {
 }
 
 $("save-exit").addEventListener("click", saveAndExit);
+
+// ── Performance mode ────────────────────────────────────────────────
+
+function showPerformanceState() {
+  const on = performanceMode();
+  const btn = $("perf");
+  btn.setAttribute("aria-pressed", String(on));
+  btn.title =
+    `Performance mode is ${on ? "on" : "off"} on this device. ` +
+    `Multithreading is ${threadsAvailable() ? "on" : "unavailable in this browser"}.`;
+}
+showPerformanceState();
+
+$("perf").addEventListener("click", async () => {
+  const next = !performanceMode();
+  const msg = next
+    ? "Turn on performance mode for this device? It lowers graphics settings and lets the emulator skip frames when the computer falls behind. The game restarts from your last in-game save."
+    : "Turn off performance mode for this device? The game restarts from your last in-game save.";
+  if (!confirm(msg)) return;
+  $("perf").disabled = true;
+  await flush();
+  setPerformanceMode(next);
+  location.reload();
+});
 $("back").addEventListener("click", saveAndExit);

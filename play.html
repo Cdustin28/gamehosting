@@ -9,6 +9,8 @@
   <meta name="mobile-web-app-capable" content="yes">
   <title>Play</title>
   <script>try{var t=localStorage.getItem("cv-theme");if(t)document.documentElement.dataset.theme=t}catch(e){}</script>
+  <script src="js/coi-config.js"></script>
+  <script src="coi-serviceworker.js"></script>
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -25,6 +27,10 @@
     <span class="sync" id="sync" data-state="idle" title="Cloud save status">
       <span class="dot"></span><span class="label" id="sync-label">Not synced yet</span>
     </span>
+    <button class="btn ghost perf-toggle" id="perf" type="button" aria-pressed="false" title="Performance mode">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13 2L4.5 13.5H11L10 22l8.5-11.5H12L13 2z"/></svg>
+      <span class="label">Performance</span>
+    </button>
     <button class="btn primary" id="save-exit" type="button">Save &amp; exit</button>
   </div>
 

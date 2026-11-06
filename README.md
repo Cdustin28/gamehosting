@@ -63,6 +63,8 @@ Supabase pauses free projects after a week with no activity. The included workfl
 - **Saves:** use the game's own save feature (for example, saving at a Pokémon Center). The player checks for a changed save every 30 seconds and uploads it, and also when you switch apps, lock your phone, or tap **Save & exit**. The status dot in the top bar shows when the last cloud save happened.
 - **Bringing an existing save:** card menu (⋮) → **Upload save file** (`.sav` / `.srm`). **Download save** exports it.
 - **Theme:** the dropdown in the header. Your choice follows you to other devices and recolors the emulator's menus.
+- **Performance mode:** the ⚡ **Performance** button in the player's top bar. It's remembered per device (on at work, off at home, for example), turns off screen filters, lets the emulator skip frames when the computer falls behind, and runs N64 at its native resolution. The game restarts from your last in-game save when you switch it.
+- **Multithreading:** turns on automatically in Chrome, Edge, and Firefox, using the included [coi-serviceworker](https://github.com/gzuidhof/coi-serviceworker) (MIT). Safari and iPhone/iPad browsers run single-threaded. Hover over the Performance button to see whether it's active. It can also be switched off per game in the emulator's settings menu (Threads).
 - **Phones:** an on-screen gamepad appears automatically. Landscape works best. N64 is demanding; newer phones handle it, older ones may stutter.
 
 ## Admin notes
